@@ -46,5 +46,5 @@ If this is not done, it will corrupt the TELNET and TELNETS data stream!
 But that's just one example. This would also be a control sequence: `255 251 24`.
 (This happens to mean `IAC WILL TERMINAL-TYPE`.)
 
-If this happens to be in the data, then it must be escaped, or it will correct the
+If this happens to be in the data, then it must be escaped, or it will corrupt the
 TELNET and TELNETS data stream.
