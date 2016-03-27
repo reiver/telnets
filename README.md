@@ -23,7 +23,7 @@ TELNETS (with an "S" at the end) is the secure version of (un-secure) the TELNET
 
 ## What does the "S" at the end mean?
 
-The "S" at the end of "TELNETS" standards for "secure".
+The "S" at the end of "TELNETS" stands for "secure".
 Just like the "S" at the end of "HTTPS".
 
 
@@ -33,7 +33,8 @@ Just like the "S" at the end of "HTTPS".
 
 **Absolutely not!**
 
-The TELNET and TELNETS have special binary escape codes and control codes that `openssl` does **not** understand.
+The TELNET and TELNETS have special binary escape codes and control codes that `openssl` does **not** understand,
+and won't be able to handle properly. And will lead to corruption of the data stream!
 
 For example, in the TELNET and TELNETS protocols, byte value `255` has a special meaning, and is called `IAC`
 (which is short for "interpret as command").
@@ -43,8 +44,8 @@ If byte value `255` is sent as data, then it **must** be "escaped" by having two
 
 If this is not done, it will corrupt the TELNET and TELNETS data stream!
 
-But that's just one example. This would also be a control sequence: `255 251 24`.
+But that is just one example. The following is also a control sequence: `255 251 24`.
 (This happens to mean `IAC WILL TERMINAL-TYPE`.)
 
-If this happens to be in the data, then it must be escaped, or it will corrupt the
+If this happens to be in the data, then it must be "escaped" properly, or it will corrupt the
 TELNET and TELNETS data stream.
