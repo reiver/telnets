@@ -50,7 +50,7 @@ func main() {
 		conn, err = telnet.DialToTLS(addr, tlsConfig)
 	}
 	if nil != err {
-		fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v", err)
+		fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v\n", err)
 		os.Exit(1)
 		return
 	}
