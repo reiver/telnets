@@ -71,7 +71,9 @@ func main() {
 
 
 	client := &telnet.Client{}
-	client.SetAuth(username)
+	if "" != username {
+		client.SetAuth(username)
+	}
 
 	if err := client.Call(conn); nil != err {
 		fmt.Fprintf(os.Stderr, "Problem calling TELNETS (secure TELNET) server: %v\n", err)
