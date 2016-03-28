@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"net"
 )
 
 
@@ -50,7 +51,17 @@ func main() {
 		conn, err = telnet.DialToTLS(addr, tlsConfig)
 	}
 	if nil != err {
-		fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v\n", err)
+		switch e1 := err.(type) {
+		case *net.OpError:
+			switch e2 := e1.Err.(type) {
+			case *os.SyscallError:
+				fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v\n", e2.Err)
+			default:
+				fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v\n", e1.Err)
+			}
+		default:
+			fmt.Fprintf(os.Stderr, "telnets: Unable to connect to remote host: %v\n", err)
+		}
 		os.Exit(1)
 		return
 	}
